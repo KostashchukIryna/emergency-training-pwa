@@ -1,6 +1,7 @@
 package edu.emergencytrainingpwa.security.providers;
 
 import edu.emergencytrainingpwa.enums.Role;
+import edu.emergencytrainingpwa.security.jwt.JwtTool;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
