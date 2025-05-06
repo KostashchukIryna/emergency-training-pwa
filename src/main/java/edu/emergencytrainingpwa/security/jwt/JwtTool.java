@@ -15,10 +15,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,5 +59,9 @@ public class JwtTool {
             .filter(authHeader -> authHeader.startsWith("Bearer "))
             .map(token -> token.substring(7))
             .orElse(null);
+    }
+
+    public String generateTokenKey() {
+        return UUID.randomUUID().toString();
     }
 }
