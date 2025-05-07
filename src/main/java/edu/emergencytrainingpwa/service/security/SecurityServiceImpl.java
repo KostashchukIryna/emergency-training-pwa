@@ -9,11 +9,6 @@ import edu.emergencytrainingpwa.dto.security.SuccessSignUpDto;
 import edu.emergencytrainingpwa.enums.Role;
 import edu.emergencytrainingpwa.exception.UserAlreadyRegisteredException;
 import edu.emergencytrainingpwa.security.jwt.JwtTool;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -43,15 +38,15 @@ public class SecurityServiceImpl implements SecurityService {
         return new SuccessSignUpDto(user.getId(), user.getUsername(), user.getEmail());
     }
 
-    private User createNewRegisteredUser(SignUpDto dto, String s) {
+    private User createNewRegisteredUser(SignUpDto dto, String refreshTokenKey) {
         return User.builder()
-            .name(dto.getName())
-            .firstName(dto.getName())
+            .username(dto.getUsername())
+            .firstName(dto.getFirstName())
+            .lastName(dto.getLastName())
+            .patronymicName(dto.getPatronymicName())
             .email(dto.getEmail())
-            .dateOfRegistration(LocalDateTime.now())
             .role(Role.ROLE_USER)
             .refreshTokenKey(refreshTokenKey)
-            .lastActivityTime(LocalDateTime.now())
             .build();
     }
 

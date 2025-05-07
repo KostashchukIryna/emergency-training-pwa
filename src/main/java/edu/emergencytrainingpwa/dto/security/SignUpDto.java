@@ -10,12 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static edu.emergencytrainingpwa.constant.AppConstant.EMAIL_REGEXP;
-import static edu.emergencytrainingpwa.constant.AppConstant.INVALID_EMAIL;
-import static edu.emergencytrainingpwa.constant.AppConstant.PASSWORD_REGEXP;
-import static edu.emergencytrainingpwa.constant.AppConstant.USERNAME_MESSAGE;
-import static edu.emergencytrainingpwa.constant.AppConstant.USERNAME_REGEXP;
-import static edu.emergencytrainingpwa.constant.AppConstant.WRONG_PASSWORD_FORMAT;
+import static edu.emergencytrainingpwa.constant.AppConstant.*;
 
 @Getter
 @Setter
@@ -27,7 +22,22 @@ public class SignUpDto {
     @Pattern(
         regexp = USERNAME_REGEXP,
         message = USERNAME_MESSAGE)
-    private String name;
+    private String username;
+
+    @Pattern(
+        regexp = NAME_REGEXP,
+        message = WRONG_FIRST_NAME_FORMAT)
+    private String firstName;
+
+    @Pattern(
+        regexp = NAME_REGEXP,
+        message = WRONG_LAST_NAME_FORMAT)
+    private String lastName;
+
+    @Pattern(
+        regexp = NAME_REGEXP,
+        message = WRONG_PATRONYMIC_NAME_FORMAT)
+    private String patronymicName;
 
     @NotBlank
     @Email(

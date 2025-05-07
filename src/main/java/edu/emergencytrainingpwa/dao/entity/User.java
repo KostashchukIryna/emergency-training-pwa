@@ -1,14 +1,7 @@
 package edu.emergencytrainingpwa.dao.entity;
 
 import edu.emergencytrainingpwa.enums.Role;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -43,4 +36,10 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private Role role;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST)
+    private PasswordSecurity passwordSecurity;
+
+    @Column(name = "refresh_token_key", nullable = false)
+    private String refreshTokenKey;
 }

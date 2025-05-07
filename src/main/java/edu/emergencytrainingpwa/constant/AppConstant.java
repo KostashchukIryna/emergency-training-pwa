@@ -14,4 +14,8 @@ public class AppConstant {
     public static final String INVALID_EMAIL= "Неправильний формат email";
     public static final String PASSWORD_REGEXP= "^(?=.*\\d).{7,}$";
     public static final String WRONG_PASSWORD_FORMAT= "Неправильний формат паролю";
+    public static final String NAME_REGEXP = "^[А-ЯҐЄІЇ][а-яґєії]+(?:-[А-ЯҐЄІЇ][а-яґєії]+)*$";
+    public static final String WRONG_FIRST_NAME_FORMAT= "Неправильний формат імені";
+    public static final String WRONG_LAST_NAME_FORMAT= "Неправильний формат прізвища";
+    public static final String WRONG_PATRONYMIC_NAME_FORMAT= "Неправильний формат по-батькові";
 }

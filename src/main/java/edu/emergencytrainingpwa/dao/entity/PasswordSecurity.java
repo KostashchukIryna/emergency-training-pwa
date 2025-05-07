@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString(exclude = "user")
-@Table(name = "own_security")
+@Table(name = "password_security")
 public class PasswordSecurity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
