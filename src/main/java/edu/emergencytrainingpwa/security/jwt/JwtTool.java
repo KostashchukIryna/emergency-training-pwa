@@ -9,6 +9,8 @@ package edu.emergencytrainingpwa.security.jwt;
 */
 
 import static edu.emergencytrainingpwa.constant.AppConstant.ROLE;
+
+import edu.emergencytrainingpwa.dto.user.UserSecurityDto;
 import edu.emergencytrainingpwa.enums.Role;
 import io.jsonwebtoken.ClaimsBuilder;
 import io.jsonwebtoken.Jwts;
@@ -29,11 +31,14 @@ public class JwtTool {
     private final Integer accessTokenValidTimeInMinutes;
     @Getter
     private final String accessTokenKey;
+    private final Integer refreshTokenValidTimeInMinutes;
 
     public JwtTool(
         @Value("${accessTokenValidTimeInMinutes}") Integer accessTokenValidTimeInMinutes,
-        @Value("${tokenKey}") String accessTokenKey) {
+        @Value("${tokenKey}") String accessTokenKey,
+        @Value("${refreshTokenValidTimeInMinutes}") Integer refreshTokenValidTimeInMinutes) {
         this.accessTokenValidTimeInMinutes = accessTokenValidTimeInMinutes;
+        this.refreshTokenValidTimeInMinutes = refreshTokenValidTimeInMinutes;
         this.accessTokenKey = accessTokenKey;
     }
 
@@ -64,4 +69,22 @@ public class JwtTool {
     public String generateTokenKey() {
         return UUID.randomUUID().toString();
     }
+
+    public String createRefreshToken(UserSecurityDto user, String email) {
+        ClaimsBuilder claims = Jwts.claims().subject(email);
+        claims.add(ROLE, Collections.singleton(user.getRole().name()));
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        calendar.add(Calendar.MINUTE, refreshTokenValidTimeInMinutes);
+        return Jwts.builder()
+            .claims(claims.build())
+            .issuedAt(now)
+            .expiration(calendar.getTime())
+            .signWith(
+                Keys.hmacShaKeyFor(user.getRefreshTokenKey().getBytes(StandardCharsets.UTF_8)),
+                Jwts.SIG.HS256)
+            .compact();
+    }
+
 }

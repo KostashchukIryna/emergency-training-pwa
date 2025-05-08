@@ -1,6 +1,7 @@
 package edu.emergencytrainingpwa.security.filters;
 
 import edu.emergencytrainingpwa.dto.user.UserDto;
+import edu.emergencytrainingpwa.dto.user.UserSecurityDto;
 import edu.emergencytrainingpwa.security.jwt.JwtTool;
 import edu.emergencytrainingpwa.service.user.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -56,8 +57,8 @@ public class AccessTokenAuthenticationFilter  extends OncePerRequestFilter {
             try {
                 Authentication authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(token, null));
-                Optional<UserDto> user = userService.findByEmail((String) authentication.getPrincipal());
-                if (user.isPresent()) {
+                UserSecurityDto user = userService.findByEmail((String) authentication.getPrincipal());
+                if (user != null) {
                     log.debug("User successfully authenticate - {}", authentication.getPrincipal());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }

@@ -79,7 +79,8 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.POST,
-                    "/security/signUp")
+                    "/security/signUp",
+                    "/security/signIn")
                 .permitAll());
         return http.build();
     }

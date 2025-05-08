@@ -2,6 +2,7 @@ package edu.emergencytrainingpwa.service.user;
 
 import edu.emergencytrainingpwa.dto.user.UserDto;
 import edu.emergencytrainingpwa.dto.user.UserRoleDto;
+import edu.emergencytrainingpwa.dto.user.UserSecurityDto;
 import edu.emergencytrainingpwa.enums.Role;
 import java.util.Date;
 import java.util.List;
@@ -29,12 +30,12 @@ public interface UserService {
     UserDto findById(Long id);
 
     /**
-     * Method that allow you to find {@link UserDto} by email.
+     * Method that allow you to find {@link UserSecurityDto} by email.
      *
      * @param email a value of {@link String}
      * @return {@link UserDto} with this email.
      */
-    Optional<UserDto> findByEmail(String email);
+    UserSecurityDto findByEmail(String email);
 
     /**
      * Update {@code ROLE} of user.
