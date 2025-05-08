@@ -3,7 +3,9 @@ package edu.emergencytrainingpwa.dao.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -31,12 +33,36 @@ public class Course {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @Column(columnDefinition = "TEXT")
+    private String preview;
+
+    @Column(columnDefinition = "TEXT")
+    private String targetUsersText;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
     @Column(nullable = false)
     private Boolean published = false;
+
+    @Column(name = "image_path", length = 400)
+    private String imagePath;
+
+    @ElementCollection
+    @CollectionTable(
+        name = "course_benefits",
+        joinColumns = @JoinColumn(name = "course_id")
+    )
+    @Column(
+        name = "benefit_text",
+        columnDefinition = "TEXT"
+    )
+    private List<String> benefits = new ArrayList<>();
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
@@ -44,6 +70,15 @@ public class Course {
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+
+    @ManyToMany
+    @JoinTable(
+        name = "course_tags",
+        joinColumns = @JoinColumn(name = "course_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    @Builder.Default
+    private Set<Tag> tags = new HashSet<>();
 
     @PrePersist
     protected void onCreate() {
