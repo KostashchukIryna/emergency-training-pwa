@@ -2,12 +2,13 @@ package edu.emergencytrainingpwa.service.security;
 
 import edu.emergencytrainingpwa.dto.security.SignInDto;
 import edu.emergencytrainingpwa.dto.security.SignUpDto;
+import edu.emergencytrainingpwa.dto.security.SuccessSignInDto;
 import edu.emergencytrainingpwa.dto.security.SuccessSignUpDto;
 
 public interface SecurityService {
     SuccessSignUpDto signUp(SignUpDto dto);
 
-//    SuccessSignInDto signIn(SignInDto dto);
+    SuccessSignInDto signIn(SignInDto dto);
 //
 //    AccessRefreshTokensDto updateAccessTokens(String refreshToken);
 //

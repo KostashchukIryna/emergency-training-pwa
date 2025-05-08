@@ -1,6 +1,8 @@
 package edu.emergencytrainingpwa.controller;
 
+import edu.emergencytrainingpwa.dto.security.SignInDto;
 import edu.emergencytrainingpwa.dto.security.SignUpDto;
+import edu.emergencytrainingpwa.dto.security.SuccessSignInDto;
 import edu.emergencytrainingpwa.dto.security.SuccessSignUpDto;
 import edu.emergencytrainingpwa.service.security.SecurityService;
 import jakarta.validation.Valid;
@@ -25,6 +27,11 @@ public class SecurityController {
     @PostMapping("/signUp")
     public ResponseEntity<SuccessSignUpDto> singUp(@Valid @RequestBody SignUpDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(securityService.signUp(dto));
+    }
+
+    @PostMapping("/signIn")
+    public ResponseEntity<SuccessSignInDto> signIn(@Valid @RequestBody SignInDto dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(securityService.signIn(dto));
     }
 
 }

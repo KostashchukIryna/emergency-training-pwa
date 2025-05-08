@@ -1,12 +1,16 @@
 package edu.emergencytrainingpwa.service.user;
 
+import edu.emergencytrainingpwa.dao.entity.User;
+import edu.emergencytrainingpwa.dao.repository.UserRepo;
 import edu.emergencytrainingpwa.dto.user.UserDto;
 import edu.emergencytrainingpwa.dto.user.UserRoleDto;
+import edu.emergencytrainingpwa.dto.user.UserSecurityDto;
 import edu.emergencytrainingpwa.enums.Role;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class UserServiceImpl implements UserService{
+    private final UserRepo userRepo;
+    private final ModelMapper modelMapper;
+
     /**
      * @param userDto
      */
@@ -51,8 +58,9 @@ public class UserServiceImpl implements UserService{
      * @return {@link UserDto} with this email.
      */
     @Override
-    public Optional<UserDto> findByEmail(String email) {
-        return Optional.empty();
+    public UserSecurityDto findByEmail(String email) {
+        Optional<User> optionalUser = userRepo.findByEmail(email);
+        return optionalUser.map(user -> modelMapper.map(user, UserSecurityDto.class)).orElse(null);
     }
 
     /**
