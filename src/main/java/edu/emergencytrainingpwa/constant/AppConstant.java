@@ -6,6 +6,7 @@ import lombok.experimental.UtilityClass;
 public class AppConstant {
     public static final String ROLE = "role";
     public static final String ANONYMOUS = "anonymousUser";
+    public static final String ADMIN = "ADMIN";
 
     public static final String EMAIL_REGEXP = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
     public static final String USERNAME_REGEXP =

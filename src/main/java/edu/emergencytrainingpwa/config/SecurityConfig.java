@@ -25,6 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import static edu.emergencytrainingpwa.constant.AppConstant.ADMIN;
 import static jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -81,7 +82,12 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST,
                     "/security/signUp",
                     "/security/signIn")
-                .permitAll());
+                .permitAll()
+                .requestMatchers(HttpMethod.POST,
+                    "/course",
+                    "/tag",
+                    "/category")
+                .hasRole(ADMIN));
         return http.build();
     }
 
