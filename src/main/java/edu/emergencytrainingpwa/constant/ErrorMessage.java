@@ -9,4 +9,5 @@ public class ErrorMessage {
     public static final String BAD_PASSWORD = "Bad password";
     public static final String CATEGORY_NOT_FOUND = "Category not found: ";
     public static final String TAGS_NOT_FOUND = "One or more tags not found: ";
+    public static final String TAG_NOT_FOUND = "Tag not found: ";
 }
