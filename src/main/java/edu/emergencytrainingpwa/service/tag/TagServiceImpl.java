@@ -1,9 +1,12 @@
 package edu.emergencytrainingpwa.service.tag;
 
+import edu.emergencytrainingpwa.constant.ErrorMessage;
 import edu.emergencytrainingpwa.dao.entity.Tag;
 import edu.emergencytrainingpwa.dao.repository.TagRepo;
 import edu.emergencytrainingpwa.dto.tag.TagAddDto;
 import edu.emergencytrainingpwa.dto.tag.TagDto;
+import edu.emergencytrainingpwa.dto.tag.TagUpdateDto;
+import edu.emergencytrainingpwa.exception.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,28 @@ public class TagServiceImpl implements TagService {
             .title(tagDto.getTitle())
             .build();
         return modelMapper.map(tagRepo.save(newTag), TagDto.class);
+    }
+
+    @Override
+    public TagDto updateTag(Long id, TagUpdateDto tagUpdateDto) {
+        validateTagExists(id);
+        validateTitle(tagUpdateDto.getTitle());
+        Tag updatedTag = Tag.builder()
+            .id(id)
+            .title(tagUpdateDto.getTitle())
+            .build();
+        return modelMapper.map(tagRepo.save(updatedTag), TagDto.class);
+    }
+
+    @Override
+    public void deleteTag(Long id) {
+        validateTagExists(id);
+        tagRepo.deleteById(id);
+    }
+    private void validateTagExists(Long id) {
+        if (!tagRepo.existsById(id)) {
+            throw new NotFoundException(ErrorMessage.TAG_NOT_FOUND);
+        }
     }
 
     private void validateTitle(String title) {

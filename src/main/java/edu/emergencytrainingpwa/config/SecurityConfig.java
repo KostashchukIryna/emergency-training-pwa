@@ -87,6 +87,14 @@ public class SecurityConfig {
                     "/course",
                     "/tag",
                     "/category")
+                .hasRole(ADMIN)
+                .requestMatchers(HttpMethod.PUT,
+                    "/category/**",
+                    "/tag/**")
+                .hasRole(ADMIN)
+                .requestMatchers(HttpMethod.DELETE,
+                    "/tag/**",
+                    "/category/**")
                 .hasRole(ADMIN));
         return http.build();
     }
