@@ -58,9 +58,6 @@ public class SecurityServiceImpl implements SecurityService {
     private User createNewRegisteredUser(SignUpDto dto, String refreshTokenKey) {
         return User.builder()
             .username(dto.getUsername())
-            .firstName(dto.getFirstName())
-            .lastName(dto.getLastName())
-            .patronymicName(dto.getPatronymicName())
             .email(dto.getEmail())
             .role(Role.ROLE_USER)
             .refreshTokenKey(refreshTokenKey)

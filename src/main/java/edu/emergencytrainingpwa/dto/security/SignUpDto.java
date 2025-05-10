@@ -24,20 +24,20 @@ public class SignUpDto {
         message = USERNAME_MESSAGE)
     private String username;
 
-    @Pattern(
-        regexp = NAME_REGEXP,
-        message = WRONG_FIRST_NAME_FORMAT)
-    private String firstName;
-
-    @Pattern(
-        regexp = NAME_REGEXP,
-        message = WRONG_LAST_NAME_FORMAT)
-    private String lastName;
-
-    @Pattern(
-        regexp = NAME_REGEXP,
-        message = WRONG_PATRONYMIC_NAME_FORMAT)
-    private String patronymicName;
+//    @Pattern(
+//        regexp = NAME_REGEXP,
+//        message = WRONG_FIRST_NAME_FORMAT)
+//    private String firstName;
+//
+//    @Pattern(
+//        regexp = NAME_REGEXP,
+//        message = WRONG_LAST_NAME_FORMAT)
+//    private String lastName;
+//
+//    @Pattern(
+//        regexp = NAME_REGEXP,
+//        message = WRONG_PATRONYMIC_NAME_FORMAT)
+//    private String patronymicName;
 
     @NotBlank
     @Email(
