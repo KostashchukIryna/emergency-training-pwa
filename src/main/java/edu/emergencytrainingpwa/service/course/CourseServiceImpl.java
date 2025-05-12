@@ -11,13 +11,19 @@ import edu.emergencytrainingpwa.dao.repository.TagRepo;
 import edu.emergencytrainingpwa.dao.repository.UserRepo;
 import edu.emergencytrainingpwa.dto.course.CourseAddDto;
 import edu.emergencytrainingpwa.dto.course.CourseResponseDto;
+import edu.emergencytrainingpwa.dto.course.FilterCourseDto;
+import edu.emergencytrainingpwa.dto.pageable.PageableDto;
+import edu.emergencytrainingpwa.exception.BadRequestException;
 import edu.emergencytrainingpwa.exception.WrongEmailException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Tuple;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -70,6 +76,21 @@ public class CourseServiceImpl implements CourseService {
             .category(category)
             .tags(tags)
             .build();
+    }
+
+    @Override
+    public PageableDto<CourseResponseDto> getCourses(Pageable pageable, FilterCourseDto filter){
+        Page<Long> coursesIds = courseRepo.findCourseIds(pageable, filter);
+
+        if (pageable.getPageNumber() >= coursesIds.getTotalPages() && coursesIds.getTotalPages() > 0) {
+            throw new BadRequestException(
+                String.format(ErrorMessage.PAGE_NOT_FOUND_MESSAGE, pageable.getPageNumber(), coursesIds.getTotalPages()));
+        }
+
+        List<Tuple> tuples;
+        tuples = courseRepo.loadCourseDataByIds(coursesIds.getContent());
+
+        return buildPageableAdvancedDto(coursesIds, tuples, pageable);
     }
 
     private void validateTitle(String title) {

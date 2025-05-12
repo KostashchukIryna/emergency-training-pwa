@@ -61,8 +61,6 @@ public class Course {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @Column(nullable = false)
-    private Boolean published = false;
 
     @Column(name = "image_path", length = 400)
     private String imagePath;
