@@ -1,8 +1,6 @@
 package edu.emergencytrainingpwa.controller;
 
-import edu.emergencytrainingpwa.dto.course.CourseAddDto;
-import edu.emergencytrainingpwa.dto.course.CourseResponseDto;
-import edu.emergencytrainingpwa.dto.course.FilterCourseDto;
+import edu.emergencytrainingpwa.dto.course.*;
 import edu.emergencytrainingpwa.dto.pageable.PageableDto;
 import edu.emergencytrainingpwa.service.course.CourseService;
 import java.security.Principal;
@@ -27,7 +25,12 @@ public class CourseController {
     }
 
     @GetMapping()
-    public ResponseEntity<PageableDto<CourseResponseDto>> getCourses(Pageable pageable, FilterCourseDto filter) {
+    public ResponseEntity<PageableDto<CourseCardDto>> getCourses(Pageable pageable, @RequestBody FilterCourseDto filter) {
         return ResponseEntity.ok().body(courseService.getCourses(pageable, filter));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CourseDetailDto> getCourse(@PathVariable Long id) {
+        return ResponseEntity.ok().body(courseService.getCourseById(id));
     }
 }

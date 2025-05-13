@@ -26,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 
 import static edu.emergencytrainingpwa.constant.AppConstant.ADMIN;
+import static edu.emergencytrainingpwa.constant.AppConstant.USER;
 import static jakarta.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -95,7 +96,11 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.DELETE,
                     "/tag/**",
                     "/category/**")
-                .hasRole(ADMIN));
+                .hasRole(ADMIN)
+                .requestMatchers(HttpMethod.GET,
+                    "/course")
+                .hasAnyRole(USER, ADMIN));
+
         return http.build();
     }
 

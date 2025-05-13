@@ -61,9 +61,14 @@ public class Course {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-
     @Column(name = "image_path", length = 400)
     private String imagePath;
+
+    @Column(nullable = false)
+    private Boolean published = false;
+
+    @Column(nullable = false)
+    private Double rating = 0.0;
 
     @ElementCollection
     @CollectionTable(
