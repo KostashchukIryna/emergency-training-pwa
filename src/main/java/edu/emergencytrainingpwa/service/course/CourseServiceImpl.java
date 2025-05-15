@@ -9,15 +9,23 @@ import edu.emergencytrainingpwa.dao.repository.CategoryRepo;
 import edu.emergencytrainingpwa.dao.repository.CourseRepo;
 import edu.emergencytrainingpwa.dao.repository.TagRepo;
 import edu.emergencytrainingpwa.dao.repository.UserRepo;
-import edu.emergencytrainingpwa.dto.course.CourseAddDto;
-import edu.emergencytrainingpwa.dto.course.CourseResponseDto;
+import edu.emergencytrainingpwa.dto.category.CategoryDto;
+import edu.emergencytrainingpwa.dto.course.*;
+import edu.emergencytrainingpwa.dto.courseModule.CourseModuleDto;
+import edu.emergencytrainingpwa.dto.pageable.PageableDto;
+import edu.emergencytrainingpwa.dto.tag.TagDto;
+import edu.emergencytrainingpwa.dto.user.AuthorDto;
+import edu.emergencytrainingpwa.exception.NotFoundException;
 import edu.emergencytrainingpwa.exception.WrongEmailException;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -69,6 +77,67 @@ public class CourseServiceImpl implements CourseService {
             .author(user)
             .category(category)
             .tags(tags)
+            .build();
+    }
+
+    @Override
+    public PageableDto<CourseCardDto> getCourses(Pageable pageable,
+                                                 FilterCourseDto filter) {
+        Page<CourseCardDto> page =
+            courseRepo.findCourseCardsByFilter(filter, pageable);
+
+        return new PageableDto<>(
+                     page.getContent(),
+                     page.getTotalElements(),
+                     page.getNumber(),
+                     page.getTotalPages(),
+                     page.getSize(),
+                     page.hasPrevious(),
+                     page.hasNext(),
+                     page.isFirst(),
+                     page.isLast()
+        );
+    }
+
+    @Override
+    public CourseDetailDto getCourseById(Long id) {
+        Course c = courseRepo.findByIdAndPublishedTrue(id)
+            .orElseThrow(() -> new NotFoundException(ErrorMessage.COURSE_NOT_FOUND + id));
+
+        return CourseDetailDto.builder()
+            .id(c.getId())
+            .title(c.getTitle())
+            .description(c.getDescription())
+            .preview(c.getPreview())
+            .targetUsersText(c.getTargetUsersText())
+            .imagePath(c.getImagePath())
+            .rating(c.getRating())
+            .category(new CategoryDto(
+                c.getCategory().getId(),
+                c.getCategory().getTitle()
+            ))
+            .author(AuthorDto.builder()
+                .id(c.getAuthor().getId())
+                .firstName(c.getAuthor().getFirstName())
+                .lastName(c.getAuthor().getLastName())
+                .build()
+            )
+            .benefits(c.getBenefits())
+            .tags(c.getTags().stream()
+                .map(t -> new TagDto(t.getId(), t.getTitle()))
+                .collect(Collectors.toSet())
+            )
+            .modules(c.getModules().stream()
+                .map(m -> new CourseModuleDto(
+                    m.getId(),
+                    m.getTitle(),
+                    m.getDescription(),
+                    m.getImagePath(),
+                    m.getOrderNumber()
+                ))
+                .collect(Collectors.toList())
+            )
+            .createdAt(c.getCreatedAt())
             .build();
     }
 

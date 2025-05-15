@@ -1,5 +1,6 @@
 package edu.emergencytrainingpwa.constant;
 
+import java.util.Locale;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -10,4 +11,7 @@ public class ErrorMessage {
     public static final String CATEGORY_NOT_FOUND = "Category not found: ";
     public static final String TAGS_NOT_FOUND = "One or more tags not found: ";
     public static final String TAG_NOT_FOUND = "Tag not found: ";
+    public static final String PAGE_NOT_FOUND_MESSAGE = "Requested page is not found";
+    public static final String COURSE_NOT_FOUND = "Course not found: ";
+
 }
