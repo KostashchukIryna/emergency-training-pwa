@@ -1,16 +1,6 @@
 package edu.emergencytrainingpwa.dao.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -52,5 +42,12 @@ public class CourseModule {
 
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<Lesson> lessons = new ArrayList<>();
+    private List<VideoLecture> videoLectures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Article> articles = new ArrayList<>();
+
+    @OneToOne(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Test test;
 }

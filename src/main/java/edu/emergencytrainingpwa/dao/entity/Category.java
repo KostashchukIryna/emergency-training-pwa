@@ -34,6 +34,9 @@ public class Category {
     @Column(nullable = false, length = 200)
     private String title;
 
+    @Column(columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    private String emoji;
+
     @OneToMany(
         mappedBy = "category",
         cascade = CascadeType.ALL,

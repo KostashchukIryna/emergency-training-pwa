@@ -39,8 +39,8 @@ public class Test {
     private Integer passingScore;
 
     @OneToOne
-    @JoinColumn(name = "lesson_id", nullable = false)
-    private Lesson lesson;
+    @JoinColumn(name = "module_id", nullable = false)
+    private CourseModule module;
 
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default

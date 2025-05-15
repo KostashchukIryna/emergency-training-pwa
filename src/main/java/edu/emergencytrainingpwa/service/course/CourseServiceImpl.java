@@ -112,10 +112,12 @@ public class CourseServiceImpl implements CourseService {
             .targetUsersText(c.getTargetUsersText())
             .imagePath(c.getImagePath())
             .rating(c.getRating())
-            .category(new CategoryDto(
-                c.getCategory().getId(),
-                c.getCategory().getTitle()
-            ))
+            .category(CategoryDto.builder()
+                .id(c.getCategory().getId())
+                .title(c.getCategory().getTitle())
+                .emoji(c.getCategory().getEmoji())
+                .build()
+            )
             .author(AuthorDto.builder()
                 .id(c.getAuthor().getId())
                 .firstName(c.getAuthor().getFirstName())
