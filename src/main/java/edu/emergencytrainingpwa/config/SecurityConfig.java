@@ -82,7 +82,11 @@ public class SecurityConfig {
                 .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.POST,
                     "/security/signUp",
-                    "/security/signIn")
+                    "/security/signIn",
+                    "/security/updatePassword")
+                .permitAll()
+                .requestMatchers(HttpMethod.GET,
+                    "/security/forgotPassword")
                 .permitAll()
                 .requestMatchers(HttpMethod.POST,
                     "/course",

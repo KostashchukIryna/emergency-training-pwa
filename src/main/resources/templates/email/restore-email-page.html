@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Відновлення пароля</title>
+</head>
+<body style="margin:0;padding:0;background-color:#f9fbff;font-family:Arial,sans-serif;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td align="center" style="padding:20px 0;">
+
+            <table role="presentation"
+                   width="600"
+                   cellpadding="0" cellspacing="0" border="0"
+                   style="background-color:#edf1f8;border-radius:16px;overflow:hidden;">
+                <tr>
+                    <td style="padding:40px;position:relative;">
+
+
+                        <h2 style="
+                  font-family:'Montserrat Alternates',Helvetica,sans-serif;
+                  font-size:24px;line-height:1.4;
+                  font-weight:700;color:#1b1d20;
+                  margin:0 0 20px 0;
+                ">
+                            Відновлення пароля
+                        </h2>
+
+
+                        <p style="font-size:16px;line-height:1.5;color:#1b1d20;margin:16px 0;">
+                            Вітаємо, <strong th:text="${name}">Ім’я користувача</strong>!
+                        </p>
+                        <p style="font-size:16px;line-height:1.5;color:#1b1d20;margin:16px 0;">
+                            Ви отримали цей лист, оскільки було запитано відновлення пароля для вашого облікового запису.
+                        </p>
+                        <p style="font-size:16px;line-height:1.5;color:#1b1d20;margin:16px 0;">
+                            Щоб встановити новий пароль, натисніть кнопку нижче:
+                        </p>
+
+
+                        <p style="text-align:center;margin:20px 0;">
+                            <a th:href="${restorePassword}"
+                               style="
+                     display:inline-block;
+                     padding:12px 24px;
+                     background-color:#355daa;
+                     color:#ffffff !important;
+                     text-decoration:none;
+                     font-size:16px;
+                     border-radius:8px;
+                   ">
+                                Відновити пароль
+                            </a>
+                        </p>
+
+
+                        <p style="font-size:16px;line-height:1.5;color:#1b1d20;margin:16px 0;">
+                            Якщо кнопка не працює, скопіюйте та вставте наступне посилання у ваш браузер:
+                        </p>
+                        <p style="font-size:14px;line-height:1.4;word-break:break-all;">
+                            <a th:href="${restorePassword}" th:text="${restorePassword}"
+                               style="color:#355daa;text-decoration:underline;">
+                                ${restorePass}
+                            </a>
+                        </p>
+
+                        <p style="font-size:16px;line-height:1.5;color:#1b1d20;margin:16px 0;">
+                            Якщо ви не запитували відновлення пароля, просто проігноруйте цей лист.
+                        </p>
+
+
+                        <div style="margin-top:30px;font-size:12px;color:#848ca9;">
+                            <p style="margin:0;">З повагою,</p>
+                            <p style="margin:0;">
+                                Команда
+                                <a th:href="${clientLink}" th:text="${clientLink}"
+                                   style="color:#355daa;text-decoration:underline;">
+                                    Ваш сайт
+                                </a>
+                            </p>
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

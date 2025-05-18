@@ -20,4 +20,15 @@ public class AppConstant {
     public static final String WRONG_FIRST_NAME_FORMAT= "Неправильний формат імені";
     public static final String WRONG_LAST_NAME_FORMAT= "Неправильний формат прізвища";
     public static final String WRONG_PATRONYMIC_NAME_FORMAT= "Неправильний формат по-батькові";
+
+    public static final String IN_CREATE_TEMPLATE_NAME = "in createEmailTemplate(), vars: {}, templateName: {}";
+    public static final String IN_SEND_EMAIL = "in sendEmail(), receiver: {}, subject: {}";
+    public static final String CLIENT_LINK = "clientLink";
+    public static final String USER_NAME = "name";
+    public static final String RESTORE_PASS = "restorePassword";
+    public static final String PARAM_USER_ID = "&user_id=";
+    public static final String RESTORE_EMAIL_PAGE = "restore-email-page";
+    public static final String CONFIRM_RESTORING_PASS = "Підтвердження відновлення паролю";
+    public static final String RESTORE_PASSWORD = "Відновлення пароль";
+    public static final String SUCCESS_RESTORED_PASSWORD_PAGE = "success-restored-password-page";
 }

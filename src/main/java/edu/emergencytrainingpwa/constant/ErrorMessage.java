@@ -1,6 +1,6 @@
 package edu.emergencytrainingpwa.constant;
 
-import java.util.Locale;
+
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
@@ -14,4 +14,7 @@ public class ErrorMessage {
     public static final String PAGE_NOT_FOUND_MESSAGE = "Requested page is not found";
     public static final String COURSE_NOT_FOUND = "Course not found: ";
 
+    public static final String PASSWORD_RESTORE_LINK_ALREADY_SENT = "Password restore link already sent to: ";
+    public static final String LINK_IS_NO_ACTIVE = "Link is not active";
+    public static final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
 }

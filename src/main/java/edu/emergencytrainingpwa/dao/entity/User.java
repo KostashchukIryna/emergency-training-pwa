@@ -24,11 +24,11 @@ public class User {
     @Column(name = "last_name", length = 30)
     private String lastName;
 
-    @Column(nullable = false, length = 40)
-    private String username;
-
     @Column(name = "patronymic_name", length = 30)
     private String patronymicName;
+
+    @Column(nullable = false, length = 40)
+    private String username;
 
     @Column(unique = true, nullable = false, length = 50)
     private String email;

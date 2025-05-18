@@ -87,4 +87,11 @@ public class JwtTool {
             .compact();
     }
 
+    public String generateTokenKeyWithCodedDate() {
+        Date date = new Date();
+        long dateLong = date.getTime();
+        dateLong += 86400000L;
+        String input = dateLong + "." + UUID.randomUUID();
+        return Base64.getEncoder().encodeToString(input.getBytes());
+    }
 }
